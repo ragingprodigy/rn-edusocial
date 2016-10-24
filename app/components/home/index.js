@@ -53,14 +53,17 @@ export default class Index extends Component {
       user: {}
     };
 
-    DB.newsFeed.remove({
-      where: {
-        id: { neq: -1 }
-      }
-    }).then(() => {
-      console.log('Rogue records removed');
-      this.forceUpdate();
-    });
+    /**
+     * TODO: Remove when done. This is only for dev purposes
+     */
+    // DB.newsFeed.remove({
+    //   where: {
+    //     id: { neq: -1 }
+    //   }
+    // }).then(() => {
+    //   console.log('Rogue records removed');
+    //   this.forceUpdate();
+    // });
   }
 
   componentDidMount() {
@@ -84,7 +87,6 @@ export default class Index extends Component {
 
           this.setState({ user: user });
 
-          console.log('Fetch Newsfeed from remote');
           fetch([ API.newsFeedUrl, user.hashcode, lastFeedDate ].join('/'), { headers: headers })
               .then((r) => r.json())
               .then((feedsResponse) => {
@@ -147,7 +149,7 @@ export default class Index extends Component {
                   <Text style={styles.feedTime}>{moment(feed.date).fromNow(true)}</Text>
                 </View>
                 <Text style={styles.feedDescription}>
-                  {feed.description.replace('[[y]]', feed.receiver_title).replace('[[x]]', feed.actor_title)}{feed.description.replace('[[y]]', feed.receiver_title).replace('[[x]]', feed.actor_title)}{feed.description.replace('[[y]]', feed.receiver_title).replace('[[x]]', feed.actor_title)}{feed.description.replace('[[y]]', feed.receiver_title).replace('[[x]]', feed.actor_title)}
+                  {feed.description.replace('[[y]]', feed.receiver_title).replace('[[x]]', feed.actor_title)}
                 </Text>
                 <View>
                   <TouchableOpacity style={styles.likeButton}>
