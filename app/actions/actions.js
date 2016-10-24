@@ -1,10 +1,16 @@
 import * as types from "./actionTypes";
 
-export function login(navProps, res) {
+export function login() {
   return {
-    type: types.LOGIN,
-    nav:navProps,
-    data: res
+    type: types.LOGIN_LOGOUT,
+    loggedIn: true
+  };
+}
+
+export function logout() {
+  return {
+    type: types.LOGIN_LOGOUT,
+    loggedIn: false
   };
 }
 

@@ -4,24 +4,18 @@
  */
 'use strict';
 
-import React, { Component, PropTypes } from 'react'
-import {
-    StyleSheet,
-    TouchableHighlight,
-    // TouchableOpacity,
-    ActivityIndicator,
-    Text
-} from 'react-native'
-
-import COLORS from '../../utils/values'
-import API from '../../utils/urls'
-import * as Animatable from 'react-native-animatable'
-import t from 'tcomb-form-native'
-
-import DB from '../../data'
+import React, {Component, PropTypes} from "react";
+import {StyleSheet, TouchableHighlight, ActivityIndicator, Text} from "react-native";
+import COLORS from "../../utils/values";
+import API from "../../utils/urls";
+import * as Animatable from "react-native-animatable";
+import t from "tcomb-form-native";
+import DB from "../../data";
 
 var Form = t.form.Form;
-type State = { animating: boolean; };
+type State = {
+  animating: boolean
+};
 
 // here we are: define your domain model
 var Person = t.struct({
@@ -44,10 +38,10 @@ var options = {
   }
 };
 
-var values: {
-  username: 'dapo@softcom.ng',
-  password: 'password'
-};
+// var values: {
+//   username: 'dapo@softcom.ng',
+//   password: 'password'
+// };
 
 export default class LoginView extends Component {
 
@@ -57,12 +51,9 @@ export default class LoginView extends Component {
 
   setState: () => void;
 
-  props: {
-    hideForm: () => void,
-  };
-
-  static PropTypes = {
-    hideForm: PropTypes.func.isRequired
+  static propTypes = {
+    hideForm: PropTypes.func.isRequired,
+    actions: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -110,7 +101,10 @@ export default class LoginView extends Component {
             console.log('Token Response', tokenResponse);
             
             responseData.token = tokenResponse.message;
-            DB.user.add(responseData).then(() => this._hideForm(responseData));
+            DB.user.add(responseData).then(() => {
+              this.props.actions.login();
+              this._hideForm(responseData);
+            });
           }).done();
         } else {
           this.setState({animating: false});

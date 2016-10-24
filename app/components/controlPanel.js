@@ -17,6 +17,11 @@ var eachNav = [
 ];
 
 export default class Control extends Component {
+
+  static PropTypes: Object = {
+    actions: React.PropTypes.object.isRequired
+  };
+
   constructor(props){
     super(props);
     this.state = {
@@ -30,7 +35,7 @@ export default class Control extends Component {
           <Profile {...this.props} />
           <ListView
               dataSource={this.state.dataSource}
-              renderRow={(rowData) => <EachComp icon = {rowData.icon} route = {rowData.route} {...this.props}>{rowData.name}</EachComp>} />
+              renderRow={(rowData) => <EachComp logout={()=> this.props.logoutHandler() } icon = {rowData.icon} route = {rowData.route} {...this.props}>{rowData.name}</EachComp>} />
         </View>
     );
   }

@@ -24,7 +24,8 @@ const initialState = {
     name:"Home",
     type:"menu",
     icon:"menu"
-  }
+  },
+  loggedIn: false
 };
 
 export function edusocial(state = initialState, action = {}) {
@@ -39,8 +40,14 @@ export function edusocial(state = initialState, action = {}) {
         navigator: action.navigator
       };
 
+    // Toggle Login/Logout State
+    case types.LOGIN_LOGOUT:
+      return {
+        ...state,
+        loggedIn: action.loggedIn
+      };
+    
     case types.NAVTO:
-      console.log("Moving nave to " + action.props);
       state.navigator.replace({
         id: action.props,
         name: action.props

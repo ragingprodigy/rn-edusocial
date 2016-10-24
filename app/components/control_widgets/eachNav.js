@@ -4,13 +4,25 @@ import Icon from "react-native-vector-icons/Ionicons";
 import COLORS from "../../utils/values";
 
 export default class EachNav extends Component {
-  constructor(props){
+
+  static propTypes: Object = {
+    state: React.PropTypes.object.isRequired,
+    icon: React.PropTypes.string.isRequired,
+    route: React.PropTypes.string.isRequired,
+    children: React.PropTypes.string.isRequired,
+    logout: React.PropTypes.func.isRequired
+  };
+
+  constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {};
   }
 
   onRoute() {
-    this.props.state.navigator.replace({id:this.props.route})
+    if (this.props.route == 'logout') { this.props.logout(); }
+    else {
+      this.props.state.navigator.replace({ id:this.props.route });
+    }
   }
 
   render() {
@@ -18,7 +30,7 @@ export default class EachNav extends Component {
       <TouchableOpacity style={[styles.row, this.props.route=='logout' && styles.logoutRow]} onPress ={() => this.onRoute()}>
         <Icon name ={this.props.icon} size={26} color={COLORS.icon} style={[styles.icon, this.props.route=='logout' && styles.whiteColor]} />
         <Text style = {[styles.text, this.props.route=='logout' && styles.whiteColor]}>{this.props.children.toUpperCase()}</Text>
-      </TouchableOpacity>)
+      </TouchableOpacity>);
   }
 }
 

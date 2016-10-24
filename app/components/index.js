@@ -3,26 +3,22 @@
  *
  * @flow
  */
-import React, { Component } from 'react'
-import {
-  StyleSheet,
-  View,
-  Navigator
-} from 'react-native'
-import {bindActionCreators} from 'redux'
-import * as actions from '../actions/actions'
-import { connect } from 'react-redux'
-
-import Drawer from 'react-native-drawer'
-import Nav from './global_widgets/nav'
-import ControlPanel from './controlPanel'
-import COLORS from '../utils/values'
-import DB from '../data'
+import React, {Component} from "react";
+import {StyleSheet, View, Navigator} from "react-native";
+import {bindActionCreators} from "redux";
+import * as actions from "../actions/actions";
+import {connect} from "react-redux";
+import Drawer from "react-native-drawer";
+import Nav from "./global_widgets/nav";
+import ControlPanel from "./controlPanel";
+import COLORS from "../utils/values";
+import Popup from "react-native-popup";
+import DB from "../data";
+import Home from "./home";
+import Courses from "./courses";
+import LoginPage from "./login";
 
 // Import App Components
-import Home from './home'
-import Courses from './courses'
-import LoginPage from './login'
 
 var drawerRef = {
   close: () => null,
@@ -101,9 +97,32 @@ class Root extends Component {
     }
   }
 
+  _logoutHandler() {
+    this.popup.confirm({
+      title: 'Sign Out!',
+      content: ['Are you sure?'],
+      ok: {
+        text: 'YES, SIGN OUT',
+        style: {
+          color: 'red'
+        },
+        callback: () => {
+          DB.user.remove({}).then(() => {
+            this.props.actions.logout();
+          });
+        }
+      },
+      cancel: {
+        text: 'NO',
+        style: {
+          color: 'green'
+        }
+      }
+    });
+  }
+
   render() {
     // const { state, actions } = this.props;
-    console.log('Called at ', new Date());
 
     return (
       <View style={{flex:1}}>
@@ -113,7 +132,7 @@ class Root extends Component {
          type="displace" // overlay / displace
          openDrawerOffset={0.2}
          panCloseMask={0.2}
-         content={<ControlPanel {...this.props} onPress = {() => this._closeControlPanel()}/>}
+         content={<ControlPanel {...this.props} logoutHandler = {() => this._logoutHandler() } onPress = {() => this._closeControlPanel()}/>}
         >
           <Nav {...this.props} pop = {() => this.refs.NAV} onPress = {() => this._openControlPanel() } style={styles.nav}  />
           <Navigator
@@ -122,7 +141,11 @@ class Root extends Component {
             initialRoute={{id: 'home', name: 'home'}}
             renderScene={this.renderScene.bind(this)}/>
         </Drawer>
-        { this.state.showLogin ? <LoginPage {...this.props} hideForm={() => this._hideLogin() } /> : null }
+        {/** Popup component */}
+        <Popup ref={popup => this.popup = popup } isOverlay={true} />
+        {/** or <Popup ref={popup => this.popup = popup } isOverlay={false} isOverlayClickClose={false}/> */}
+
+        { !this.props.state.loggedIn ? <LoginPage {...this.props} hideForm={() => this._hideLogin() } /> : null }
       </View>
     );
   }
