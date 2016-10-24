@@ -38,11 +38,6 @@ var options = {
   }
 };
 
-// var values: {
-//   username: 'dapo@softcom.ng',
-//   password: 'password'
-// };
-
 export default class LoginView extends Component {
 
   state: State;
@@ -119,8 +114,8 @@ export default class LoginView extends Component {
   }
 
   _hideForm(data: Object) {
-    this._rootView.slideOutDown(200);
-    setTimeout(() => this.props.hideForm(data), 200);
+    // this._rootView.slideOutDown(200);
+    setTimeout(() => this.props.hideForm(data), 10);
   }
 
   render() {
@@ -158,7 +153,9 @@ const styles = StyleSheet.create({
   },
   loginView: {
     padding: 30,
-    flex: 1, justifyContent:'center', backgroundColor: COLORS.accent, position:'absolute',
+    flex: 1, justifyContent:'center',
+    backgroundColor: COLORS.accent,
+    position:'absolute',
     top:0, right:0, left: 0, bottom: 0
   },
   formTitle: {

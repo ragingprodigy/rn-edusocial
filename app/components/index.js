@@ -52,8 +52,9 @@ class Root extends Component {
 
   componentWillMount() {
     DB.getUser((u) => {
-      console.log('Signed in as ', u);
-      this.setState({ showLogin: u===null || u.length === 0 });
+      let showLogin = u===null || u.length === 0;
+      if (!showLogin) { this.props.actions.login(); }
+      // this.setState({ showLogin: showLogin });
     });
   }
 
@@ -107,6 +108,8 @@ class Root extends Component {
           color: 'red'
         },
         callback: () => {
+          this._closeControlPanel();
+
           DB.user.remove({}).then(() => {
             this.props.actions.logout();
           });
@@ -116,7 +119,8 @@ class Root extends Component {
         text: 'NO',
         style: {
           color: 'green'
-        }
+        },
+        callback: () => this._closeControlPanel()
       }
     });
   }
