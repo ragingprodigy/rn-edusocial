@@ -1,12 +1,16 @@
-import React, { Component } from 'react'
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import COLORS from '../../utils/values'
+import React, {Component} from "react";
+import {View, Text, TouchableOpacity, StyleSheet} from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import COLORS from "../../utils/values";
 
 export default class Nav extends Component {
-  constructor(props){
-  	super(props)
-  	// console.log(this.props)
+  static propTypes = {
+    state: React.PropTypes.object.isRequired,
+    onPress: React.PropTypes.func.isRequired
+  };
+  
+  constructor(props) {
+    super(props);
   }
 
   menu() {
@@ -18,10 +22,10 @@ export default class Nav extends Component {
   }
   render() {
     return (
-    	<TouchableOpacity onPress ={() => this.menu()}>
+      <TouchableOpacity onPress ={() => this.menu()}>
         <View style= {styles.navBar}>
           <Icon color={this.props.state.navStyle.color} name={this.props.state.navProps.icon} size={26} />
-          <Text style={styles.pageTitle}>{this.props.state.navProps.name}</Text>
+          <Text style={styles.pageTitle}>{this.props.state.navTitle}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -44,4 +48,4 @@ const styles = StyleSheet.create({
     color:COLORS.white,
     fontSize:20
   }
-})
+});

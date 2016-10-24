@@ -2,19 +2,12 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  TouchableOpacity,
-  ListView,
-  Text,
-  View
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-
-import DB from '../../data'
-import * as Course from './courseSchema'
-import COLORS from '../../utils/values'
+import React, {Component} from "react";
+import {StyleSheet, TouchableOpacity, ListView, Text, View} from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import DB from "../../data";
+import * as Course from "./courseSchema";
+import COLORS from "../../utils/values";
 
 var courses = [];
 
@@ -24,19 +17,19 @@ export default class Index extends Component {
   static propTypes = {
     actions: React.PropTypes.object.isRequired,
     navigator: React.PropTypes.object.isRequired,
+    state: React.PropTypes.object.isRequired,
     close: React.PropTypes.func.isRequired
   };
   
   constructor(props) {
     super(props);
-
-    this.state = {
-      datasource: ds.cloneWithRows(courses)
-    }
+    this.state = { datasource: ds.cloneWithRows(courses) };
   }
   
   componentDidMount() {
     this.props.actions.setNav(this.props.navigator);
+    this.props.actions.changeNavTitle({ title: 'Courses' });
+    
     this.props.close();
     
     DB.getUser((u) => {

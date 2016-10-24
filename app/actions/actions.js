@@ -1,4 +1,4 @@
-import * as types from './actionTypes';
+import * as types from "./actionTypes";
 
 export function login(navProps, res) {
   return {
@@ -18,6 +18,13 @@ export function setNav(nav) {
 export function changeNav(propz){
   return {
     type: types.CHANGE_NAV_STYLE,
+    prop: propz
+  }
+}
+
+export function changeNavTitle(propz){
+  return {
+    type: types.CHANGE_NAV_TITLE,
     prop: propz
   }
 }

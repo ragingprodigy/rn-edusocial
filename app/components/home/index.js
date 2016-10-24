@@ -1,24 +1,15 @@
 /**
  * @flow
  */
-import React, { Component } from 'react'
-import {
-  StyleSheet,
-  TouchableOpacity,
-  ListView,
-  Image,
-  Text,
-  View,
-  TextInput
-} from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import moment from 'moment'
-
-import COLORS from '../../utils/values'
-import API from '../../utils/urls'
-import DB from '../../data'
-import * as FeedTypes from './feedTypes'
-import * as NewsFeed from './feedSchema'
+import React, {Component} from "react";
+import {StyleSheet, TouchableOpacity, ListView, Image, Text, View, TextInput} from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import moment from "moment";
+import COLORS from "../../utils/values";
+import API from "../../utils/urls";
+import DB from "../../data";
+import * as FeedTypes from "./feedTypes";
+import * as NewsFeed from "./feedSchema";
 
 let ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => r1 !== r2
@@ -68,6 +59,8 @@ export default class Index extends Component {
 
   componentDidMount() {
     this.props.actions.setNav(this.props.navigator);
+    this.props.actions.changeNavTitle({ title: 'Home' });
+
     this.props.close();
 
     DB.newsFeed.find().then((feedsList) => {

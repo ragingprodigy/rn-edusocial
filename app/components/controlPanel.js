@@ -1,9 +1,7 @@
-import React, { Component } from 'react'
-import { View, TouchableOpacity, Text, ListView } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-
-import EachComp from './control_widgets/eachNav'
-import Profile from './control_widgets/userBlock'
+import React, {Component} from "react";
+import {View, ListView} from "react-native";
+import EachComp from "./control_widgets/eachNav";
+import Profile from "./control_widgets/userBlock";
 
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 var eachNav = [

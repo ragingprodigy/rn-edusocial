@@ -1,11 +1,11 @@
-import * as types from '../actions/actionTypes';
-
-import COLORS from '../utils/values'
+import * as types from "../actions/actionTypes";
+import COLORS from "../utils/values";
 
 var userData;
 
 const initialState = {
 	navColor:COLORS.white,
+  navTitle: 'HOME',
   navStyle:{
     backgroundColor:COLORS.primaryDark,
     color:COLORS.white,
@@ -55,6 +55,12 @@ export function edusocial(state = initialState, action = {}) {
       return {
         ...state,
         navProps: {name:action.name, type:"pop", icon:'arrow-back'}
+      };
+    
+    case types.CHANGE_NAV_TITLE:
+      return {
+        ...state,
+        navTitle: action.prop.title
       };
 
     case types.CHANGE_NAV_STYLE:

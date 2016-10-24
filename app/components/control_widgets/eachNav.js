@@ -1,12 +1,11 @@
-import React, { Component } from 'react'
-import { TouchableOpacity, Text, StyleSheet } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
-
-import COLORS from '../../utils/values'
+import React, {Component} from "react";
+import {TouchableOpacity, Text, StyleSheet} from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import COLORS from "../../utils/values";
 
 export default class EachNav extends Component {
   constructor(props){
-    super(props)
+    super(props);
     this.state = {}
   }
 
@@ -17,9 +16,9 @@ export default class EachNav extends Component {
   render() {
     return(
       <TouchableOpacity style={[styles.row, this.props.route=='logout' && styles.logoutRow]} onPress ={() => this.onRoute()}>
-      	<Icon name ={this.props.icon} size={26} color={COLORS.icon} style={[styles.icon, this.props.route=='logout' && styles.whiteColor]} />
-      	<Text style = {[styles.text, this.props.route=='logout' && styles.whiteColor]}>{this.props.children.toUpperCase()}</Text>
-    	</TouchableOpacity>)
+        <Icon name ={this.props.icon} size={26} color={COLORS.icon} style={[styles.icon, this.props.route=='logout' && styles.whiteColor]} />
+        <Text style = {[styles.text, this.props.route=='logout' && styles.whiteColor]}>{this.props.children.toUpperCase()}</Text>
+      </TouchableOpacity>)
   }
 }
 
